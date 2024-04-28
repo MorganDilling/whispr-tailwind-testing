@@ -127,14 +127,44 @@
 <div class="w-8/12 flex flex-col">
 	<Message
 		messages={[
-			'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim iste perferendis eius',
-			'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim iste perferendis eius'
+			{
+				content: 'Hello, how are you?',
+				author: {
+					name: 'John Doe'
+				}
+			},
+			{
+				content: 'Today is a good day!',
+				author: {
+					name: 'John Doe'
+				}
+			}
 		]}
 		side="left"
 	></Message>
-	<Message messages={['hello']} side="right"></Message>
-	<Message messages={['Hi there!']} side="left"></Message>
-	<Message messages={['More message examples', 'like this']} side="right"></Message>
+	<Message
+		messages={[
+			{
+				content: "I'm doing well, thank you!",
+				author: {
+					name: 'Jane Doe'
+				},
+				quote: {
+					content: 'Hello, how are you?',
+					author: {
+						name: 'John Doe'
+					}
+				}
+			},
+			{
+				content: 'Neat.',
+				author: {
+					name: 'Jane Doe'
+				}
+			}
+		]}
+		side="right"
+	></Message>
 </div>
 
 <style>

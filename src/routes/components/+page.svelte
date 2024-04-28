@@ -221,19 +221,6 @@
 		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
-				content: "I'm doing well, thank you!",
-				author: {
-					name: 'Jane Doe'
-				},
-				quote: {
-					content:
-						'Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? ',
-					author: {
-						name: 'John Doe'
-					}
-				}
-			},
-			{
 				content: 'Oops typo',
 				author: {
 					name: 'Jane Doe'

@@ -133,6 +133,8 @@
 		side="left"
 	></Message>
 	<Message messages={['hello']} side="right"></Message>
+	<Message messages={['Hi there!']} side="left"></Message>
+	<Message messages={['More message examples', 'like this']} side="right"></Message>
 </div>
 
 <style>

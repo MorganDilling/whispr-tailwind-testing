@@ -96,14 +96,17 @@
 				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"
 				><i class="bi bi-reply-fill flex justify-center align-middle"></i></button
 			>
-			<button
-				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"
-				><i class="bi bi-pencil-fill flex justify-center align-middle"></i></button
-			>
-			<button
-				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"
-				><i class="bi bi-trash-fill flex justify-center align-middle"></i></button
-			>
+			{#if side === 'right'}
+				<button
+					class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"
+					><i class="bi bi-pencil-fill flex justify-center align-middle"></i></button
+				>
+				<button
+					class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle group"
+					><i class="bi bi-trash-fill flex justify-center align-middle group-hover:text-red-500"
+					></i></button
+				>
+			{/if}
 			<button
 				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"
 				><i class="bi bi-three-dots-vertical flex justify-center align-middle"></i></button

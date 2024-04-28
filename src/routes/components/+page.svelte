@@ -185,7 +185,8 @@
 				content: 'Today is a good day!',
 				author: {
 					name: 'John Doe'
-				}
+				},
+				edited: new Date()
 			}
 		]}
 		side="left"

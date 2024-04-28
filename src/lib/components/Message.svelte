@@ -142,12 +142,12 @@
 						on:mouseover={(e) =>
 							dispatchTooltip(
 								e,
-								`Edited ${message.edited?.toLocaleDateString()}  ${message.edited?.toLocaleTimeString()}`
+								`Edited ${message.edited?.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`
 							)}
 						on:focus={(e) =>
 							dispatchTooltip(
 								e,
-								`Edited ${message.edited?.toLocaleDateString()} ${message.edited?.toLocaleTimeString()}`
+								`Edited ${message.edited?.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`
 							)}
 						on:mouseleave={() => dispatch('hide-tooltip')}
 						on:focusout={() => dispatch('hide-tooltip')}

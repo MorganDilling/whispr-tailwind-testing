@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 	type Author = {
 		name: string;
 	};
@@ -6,6 +9,7 @@
 		content: string;
 		quote?: Message;
 		author: Author;
+		edited?: Date;
 	};
 
 	export let messages: Message[] = [];
@@ -33,6 +37,10 @@
 
 		if (target.tagName === 'P') {
 			contextMenu.style.top = `${target.offsetTop - 8 - 16}px`;
+		} else {
+			const content = target.closest('p');
+			if (!content) return;
+			contextMenu.style.top = `${content.offsetTop - 8 - 16}px`;
 		}
 
 		if (side === 'left') {
@@ -72,6 +80,18 @@
 
 		contextMenu.style.visibility = 'hidden';
 	};
+
+	const dispatchTooltip = (event: any, text: string) => {
+		dispatch('show-tooltip', {
+			event,
+			text,
+			position: {
+				x:
+					event.target?.getBoundingClientRect().x + event.target?.getBoundingClientRect().width / 2,
+				y: event.target?.getBoundingClientRect().y
+			}
+		});
+	};
 </script>
 
 <div class="w-full flex flex-col" id="container">
@@ -102,11 +122,10 @@
 								src="https://ui-avatars.com/api/?name={message.quote.author
 									.name}&background=ffffff&color=7d8590&length=1&size=256&bold=true"
 								alt="profile"
-								class="aspect-square h-4 opacity-60 scale-100 rounded-full inline-block mr-1.5"
-								style="--tw-translate-y: 2px;"
+								class="aspect-square h-4 opacity-60 scale-100 rounded-full inline-block mr-1.5 translate-y-[2px]"
 							/><button
-								class="text-text-100 opacity-60 font-semibold hover:underline scale-100"
-								style="--tw-translate-y: 2px;">{message.quote.author.name}:</button
+								class="text-text-100 opacity-60 font-semibold hover:underline scale-100 translate-y-[2px]"
+								>{message.quote.author.name}:</button
 							></span
 						>
 						<span
@@ -117,6 +136,24 @@
 					</div>
 				{/if}
 				{message.content}
+				{#if message.edited}
+					<span
+						class="inline-flex flex-row justify-center items-center translate-y-0.5"
+						on:mouseover={(e) =>
+							dispatchTooltip(
+								e,
+								`Edited ${message.edited?.toLocaleDateString()}  ${message.edited?.toLocaleTimeString()}`
+							)}
+						on:focus={(e) =>
+							dispatchTooltip(
+								e,
+								`Edited ${message.edited?.toLocaleDateString()} ${message.edited?.toLocaleTimeString()}`
+							)}
+						on:mouseleave={() => dispatch('hide-tooltip')}
+						on:focusout={() => dispatch('hide-tooltip')}
+						role="tooltip"><i class="bi bi-pencil-fill opacity-60 scale-90 inline-flex"></i></span
+					>
+				{/if}
 			</p>
 		{/each}
 		<div
@@ -128,9 +165,7 @@
 		>
 			<button
 				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
-				><i
-					class="bi bi-quote scale-125 flex justify-center items-center"
-					style="--tw-translate-y: 1px;"
+				><i class="bi bi-quote scale-125 flex justify-center items-center translate-y-[1px]"
 				></i></button
 			>
 			{#if side === 'right'}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Message from '$lib/components/Message.svelte';
+	import TooltipContainer from '$lib/components/TooltipContainer.svelte';
 
 	let inputBox: HTMLTextAreaElement;
 
@@ -27,7 +28,21 @@
 		autoHeight();
 		console.log(JSON.stringify(inputBox.value));
 	};
+
+	// tooltips
+	let tooltip = 'Hello world';
+	let position = { x: 100, y: 100 };
+
+	const showTooltip = (e: any) => {
+		tooltip = e.detail.text;
+		position = e.detail.position;
+	};
+	const hideTooltip = () => {
+		tooltip = '';
+	};
 </script>
+
+<TooltipContainer {tooltip} {position}></TooltipContainer>
 
 <h1 class="text-text-100 text-5xl inline-block">
 	Privacy <h1
@@ -126,6 +141,8 @@
 
 <div class="w-1/4 flex flex-col">
 	<Message
+		on:show-tooltip={showTooltip}
+		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
 				content: 'Hello, how are you?',
@@ -143,6 +160,8 @@
 		side="left"
 	></Message>
 	<Message
+		on:show-tooltip={showTooltip}
+		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
 				content: "I'm doing well, thank you!",
@@ -167,6 +186,8 @@
 	></Message>
 
 	<Message
+		on:show-tooltip={showTooltip}
+		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
 				content: "I'm doing well, thank you!",
@@ -180,6 +201,13 @@
 						name: 'John Doe'
 					}
 				}
+			},
+			{
+				content: 'Oops typo',
+				author: {
+					name: 'Jane Doe'
+				},
+				edited: new Date()
 			}
 		]}
 		side="right"

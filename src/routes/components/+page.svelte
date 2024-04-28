@@ -30,8 +30,8 @@
 	};
 
 	// tooltips
-	let tooltip = 'Hello world';
-	let position = { x: 100, y: 100 };
+	let tooltip = '';
+	let position = { x: 0, y: 0 };
 
 	const showTooltip = (e: any) => {
 		tooltip = e.detail.text;
@@ -118,6 +118,17 @@
 	disabled
 	class="transition-colors text-text-100 p-2 bg-background-700 rounded-full pl-3.5 pr-3.5 disabled:bg-background-700 disabled:text-background-400 disabled:cursor-not-allowed"
 	><span><i class="bi bi-pencil-fill text-text-500 mr-1.5"></i></span>Secondary disabled</button
+>
+
+<button
+	class="transition-colors text-text-100 p-2 bg-red-600 rounded-full pl-3.5 pr-3.5 hover:bg-red-500"
+	><span><i class="bi bi-pencil-fill text-text-100 mr-1.5"></i></span>Danger</button
+>
+
+<button
+	disabled
+	class="transition-colors text-text-100 p-2 bg-red-700 rounded-full pl-3.5 pr-3.5 disabled:bg-red-700 disabled:text-red-300 disabled:cursor-not-allowed"
+	><span><i class="bi bi-pencil-fill text-red-300 mr-1.5"></i></span>Danger disabled</button
 >
 
 <br />

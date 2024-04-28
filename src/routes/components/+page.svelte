@@ -49,7 +49,7 @@
 		>
 		<input
 			type="text"
-			class="transition-all ease-in-out text-text-100 p-2 block w-full placeholder:text-text-400 pl-12 pr-4 bg-background-800 rounded-full focus:outline-none focus:border-background-400 focus:ring-background-400 focus:ring-2"
+			class="transition-all ease-in-out text-text-100 p-2 block w-full placeholder:text-text-400 pl-12 pr-4 bg-background-800 rounded-full outline-none focus:ring-2 focus:ring-background-400"
 			placeholder="Search"
 			name="search"
 		/>

@@ -17,15 +17,19 @@
 	}
 
 	:global(html) {
-		font-family: 'Commissioner', sans-serif;
+		font-family: 'Montserrat', sans-serif;
 		font-optical-sizing: auto;
-		font-weight: 300;
+		font-weight: 400;
 		font-style: normal;
 		ascent-override: 90%;
 	}
 
 	:global(body) {
 		background-color: theme(colors.background.950);
+	}
+
+	:global(h1, h2, h3, h4, h5, h6) {
+		font-family: 'Commissioner', sans-serif;
 	}
 
 	:global(h1) {

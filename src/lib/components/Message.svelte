@@ -102,11 +102,11 @@
 								src="https://ui-avatars.com/api/?name={message.quote.author
 									.name}&background=ffffff&color=7d8590&length=1&size=256&bold=true"
 								alt="profile"
-								class="aspect-square h-4 opacity-60 scale-100 rounded-full inline-block mr-1"
+								class="aspect-square h-4 opacity-60 scale-100 rounded-full inline-block mr-1.5"
 								style="--tw-translate-y: 2px;"
 							/><button
 								class="text-text-100 opacity-60 font-semibold hover:underline scale-100"
-								style="--tw-translate-y: 1px;">{message.quote.author.name}:</button
+								style="--tw-translate-y: 2px;">{message.quote.author.name}:</button
 							></span
 						>
 						<span

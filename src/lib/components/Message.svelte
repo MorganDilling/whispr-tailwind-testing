@@ -90,7 +90,7 @@
 			on:mouseleave={hideContextMenu}
 			on:focusout={hideContextMenu}
 			role="listitem"
-			class="flex invisible flex-row absolute bg-background-900 rounded-full drop-shadow-lg text-text-100 overflow-hidden"
+			class="flex invisible flex-row absolute bg-background-900 rounded-full shadow-background-950 shadow-md text-text-100 overflow-hidden"
 		>
 			<button
 				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center align-middle"

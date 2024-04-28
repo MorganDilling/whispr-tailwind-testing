@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ExtendedContextMenu from '$lib/components/ExtendedContextMenu.svelte';
 	import Message from '$lib/components/Message.svelte';
 	import TooltipContainer from '$lib/components/TooltipContainer.svelte';
 
@@ -232,6 +233,15 @@
 		side="right"
 	></Message>
 </div>
+
+<br />
+
+<div class="p-2 mb-52 h-56">
+	<ExtendedContextMenu></ExtendedContextMenu>
+</div>
+
+<br />
+<br />
 
 <style>
 	:global(body) {

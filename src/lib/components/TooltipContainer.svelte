@@ -8,7 +8,7 @@
 </script>
 
 <div
-	class="w-screen h-screen absolute top-0 left-0 z-[9999] pointer-events-none"
+	class="w-full h-screen absolute top-0 left-0 z-[9999] pointer-events-none"
 	use:autoAnimate={{ duration: 150, easing: 'ease-in-out' }}
 >
 	{#if !!tooltip}

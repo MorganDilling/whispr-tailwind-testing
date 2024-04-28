@@ -82,13 +82,13 @@
 	};
 
 	const dispatchTooltip = (event: any, text: string) => {
+		const target = event.target.tagName === 'I' ? event.target.parentElement : event.target;
 		dispatch('show-tooltip', {
 			event,
 			text,
 			position: {
-				x:
-					event.target?.getBoundingClientRect().x + event.target?.getBoundingClientRect().width / 2,
-				y: event.target?.getBoundingClientRect().y
+				x: target?.getBoundingClientRect().x + target?.getBoundingClientRect().width / 2,
+				y: target?.getBoundingClientRect().y
 			}
 		});
 	};
@@ -164,16 +164,28 @@
 			class="flex invisible flex-row absolute bg-background-900 rounded-full shadow-background-950 shadow-md text-text-100 overflow-hidden"
 		>
 			<button
+				on:mouseover={(e) => dispatchTooltip(e, 'Quote')}
+				on:focus={(e) => dispatchTooltip(e, 'Quote')}
+				on:mouseleave={() => dispatch('hide-tooltip')}
+				on:focusout={() => dispatch('hide-tooltip')}
 				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i class="bi bi-quote scale-125 flex justify-center items-center translate-y-[1px]"
 				></i></button
 			>
 			{#if side === 'right'}
 				<button
+					on:mouseover={(e) => dispatchTooltip(e, 'Edit')}
+					on:focus={(e) => dispatchTooltip(e, 'Edit')}
+					on:mouseleave={() => dispatch('hide-tooltip')}
+					on:focusout={() => dispatch('hide-tooltip')}
 					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 					><i class="bi bi-pencil-fill flex justify-center items-center"></i></button
 				>
 				<button
+					on:mouseover={(e) => dispatchTooltip(e, 'Delete')}
+					on:focus={(e) => dispatchTooltip(e, 'Delete')}
+					on:mouseleave={() => dispatch('hide-tooltip')}
+					on:focusout={() => dispatch('hide-tooltip')}
 					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center group"
 					><i
 						class="bi bi-trash-fill flex justify-center items-center group-hover:text-red-500 transition-colors"
@@ -181,6 +193,10 @@
 				>
 			{/if}
 			<button
+				on:mouseover={(e) => dispatchTooltip(e, 'More Options')}
+				on:focus={(e) => dispatchTooltip(e, 'More Options')}
+				on:mouseleave={() => dispatch('hide-tooltip')}
+				on:focusout={() => dispatch('hide-tooltip')}
 				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i class="bi bi-three-dots-vertical flex justify-center items-center"></i></button
 			>

@@ -37,6 +37,14 @@
 		tooltip = e.detail.text;
 		position = e.detail.position;
 	};
+	const showLocalTooltip = (event: any, text: string) => {
+		const target = event.target.tagName === 'I' ? event.target.parentElement : event.target;
+		position = {
+			x: target?.getBoundingClientRect().x + target?.getBoundingClientRect().width / 2,
+			y: target?.getBoundingClientRect().y
+		};
+		tooltip = text;
+	};
 	const hideTooltip = () => {
 		tooltip = '';
 	};
@@ -134,18 +142,30 @@
 <br />
 <br />
 
-<div
-	class="rounded-full text-green-500 border-green-500 border-2 bg-green-500 bg-opacity-10 pl-2 pr-2 w-fit h-fit"
->
-	Verified
-</div>
+<div class="w-full flex justify-center gap-2">
+	<div
+		on:mouseover={(e) => showLocalTooltip(e, 'This user is verified')}
+		on:focus={(e) => showLocalTooltip(e, 'This user is verified')}
+		on:mouseleave={() => hideTooltip()}
+		on:focusout={() => hideTooltip()}
+		role="tooltip"
+		class="rounded-full text-green-500 border-green-500 border-2 bg-green-500 bg-opacity-10 pl-2 pr-2 w-fit h-fit"
+	>
+		Verified
+	</div>
 
-<br />
+	<br />
 
-<div
-	class="rounded-full text-orange-400 border-orange-400 bg-orange-500 bg-opacity-10 border-2 pl-2 pr-2 w-fit h-fit"
->
-	Unverified
+	<div
+		on:mouseover={(e) => showLocalTooltip(e, 'This user is not verified')}
+		on:focus={(e) => showLocalTooltip(e, 'This user is not verified')}
+		on:mouseleave={() => hideTooltip()}
+		on:focusout={() => hideTooltip()}
+		role="tooltip"
+		class="rounded-full text-orange-400 border-orange-400 bg-orange-500 bg-opacity-10 border-2 pl-2 pr-2 w-fit h-fit"
+	>
+		Unverified
+	</div>
 </div>
 
 <br />

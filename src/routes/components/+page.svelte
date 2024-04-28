@@ -124,7 +124,7 @@
 
 <br />
 
-<div class="w-8/12 flex flex-col">
+<div class="w-1/4 flex flex-col">
 	<Message
 		messages={[
 			{
@@ -160,6 +160,25 @@
 				content: 'Neat.',
 				author: {
 					name: 'Jane Doe'
+				}
+			}
+		]}
+		side="right"
+	></Message>
+
+	<Message
+		messages={[
+			{
+				content: "I'm doing well, thank you!",
+				author: {
+					name: 'Jane Doe'
+				},
+				quote: {
+					content:
+						'Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? Hello, how are you? ',
+					author: {
+						name: 'John Doe'
+					}
 				}
 			}
 		]}

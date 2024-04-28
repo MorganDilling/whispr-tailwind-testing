@@ -110,7 +110,7 @@
 							></span
 						>
 						<span
-							><button class="text-text-100 opacity-60 hover:opacity-90"
+							><button class="text-text-100 opacity-60 hover:opacity-90 max-w-52 truncate"
 								>{message.quote.content}</button
 							></span
 						>
@@ -127,7 +127,7 @@
 			class="flex invisible flex-row absolute bg-background-900 rounded-full shadow-background-950 shadow-md text-text-100 overflow-hidden"
 		>
 			<button
-				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
+				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i
 					class="bi bi-quote scale-125 flex justify-center items-center"
 					style="--tw-translate-y: 1px;"
@@ -135,17 +135,18 @@
 			>
 			{#if side === 'right'}
 				<button
-					class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
+					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 					><i class="bi bi-pencil-fill flex justify-center items-center"></i></button
 				>
 				<button
-					class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center group"
-					><i class="bi bi-trash-fill flex justify-center items-center group-hover:text-red-500"
+					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center group"
+					><i
+						class="bi bi-trash-fill flex justify-center items-center group-hover:text-red-500 transition-colors"
 					></i></button
 				>
 			{/if}
 			<button
-				class="h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
+				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i class="bi bi-three-dots-vertical flex justify-center items-center"></i></button
 			>
 		</div>

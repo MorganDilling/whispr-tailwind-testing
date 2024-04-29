@@ -5,11 +5,16 @@
 	type Author = {
 		name: string;
 	};
+	type Reaction = {
+		emoji: string;
+		author: Author;
+	};
 	type Message = {
 		content: string;
 		quote?: Message;
 		author: Author;
 		edited?: Date;
+		reactions?: Reaction[];
 	};
 
 	export let messages: Message[] = [];

@@ -1,6 +1,8 @@
 <script lang="ts">
+	import Button from '$lib/components/Button.svelte';
 	import ExtendedContextMenu from '$lib/components/ExtendedContextMenu.svelte';
 	import Message from '$lib/components/Message.svelte';
+	import MousePositionContainer from '$lib/components/MousePositionContainer.svelte';
 	import TooltipContainer from '$lib/components/TooltipContainer.svelte';
 
 	let inputBox: HTMLTextAreaElement;
@@ -51,6 +53,7 @@
 	};
 </script>
 
+<MousePositionContainer></MousePositionContainer>
 <TooltipContainer {tooltip} {position}></TooltipContainer>
 
 <h1 class="text-text-100 text-5xl inline-block">
@@ -107,7 +110,18 @@
 
 <br />
 
-<button
+<Button><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Primary</Button>
+<Button disabled><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Primary</Button>
+<Button variant="secondary"><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Secondary</Button>
+<Button variant="secondary" disabled
+	><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Secondary disabled</Button
+>
+<Button variant="danger"><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Danger</Button>
+<Button variant="danger" disabled
+	><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Danger disabled</Button
+>
+
+<!-- <button
 	class="transition-colors text-text-100 p-2 bg-primary-600 rounded-full pl-3.5 pr-3.5 hover:bg-primary-500"
 	><span><i class="bi bi-pencil-fill text-text-100 mr-1.5"></i></span>Primary</button
 >
@@ -138,7 +152,7 @@
 	disabled
 	class="transition-colors text-text-100 p-2 bg-red-700 rounded-full pl-3.5 pr-3.5 disabled:bg-red-700 disabled:text-red-300 disabled:cursor-not-allowed"
 	><span><i class="bi bi-pencil-fill text-red-300 mr-1.5"></i></span>Danger disabled</button
->
+> -->
 
 <br />
 <br />

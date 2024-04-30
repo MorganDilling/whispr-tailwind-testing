@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
+	import { emojiMatch } from '$lib/messageContentLexer';
+	import FormattedMessageContent from './FormattedMessageContent.svelte';
 
 	type Author = {
 		name: string;
 	};
 	type Reaction = {
 		emoji: string;
-		author: Author;
+		users: Author[];
+		reacted: boolean;
 	};
 	type Message = {
 		content: string;
@@ -86,16 +87,11 @@
 		contextMenu.style.visibility = 'hidden';
 	};
 
-	const dispatchTooltip = (event: any, text: string) => {
-		const target = event.target.tagName === 'I' ? event.target.parentElement : event.target;
-		dispatch('show-tooltip', {
-			event,
-			text,
-			position: {
-				x: target?.getBoundingClientRect().x + target?.getBoundingClientRect().width / 2,
-				y: target?.getBoundingClientRect().y
-			}
-		});
+	const fetchEmoji = (emoji: string): string => {
+		const e = emoji.match(emojiMatch)?.[0];
+
+		if (!e) return '';
+		return e.slice(1, e.length - 1);
 	};
 </script>
 
@@ -135,29 +131,52 @@
 						>
 						<span
 							><button class="text-text-100 opacity-60 hover:opacity-90 max-w-52 truncate"
-								>{message.quote.content}</button
+								><FormattedMessageContent content={message.quote.content}
+								></FormattedMessageContent></button
 							></span
 						>
 					</div>
 				{/if}
-				{message.content}
+				<FormattedMessageContent content={message.content}></FormattedMessageContent>
 				{#if message.edited}
 					<span
 						class="inline-flex flex-row justify-center items-center translate-y-0.5"
-						on:mouseover={(e) =>
-							dispatchTooltip(
-								e,
-								`Edited ${message.edited?.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`
-							)}
-						on:focus={(e) =>
-							dispatchTooltip(
-								e,
-								`Edited ${message.edited?.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`
-							)}
-						on:mouseleave={() => dispatch('hide-tooltip')}
-						on:focusout={() => dispatch('hide-tooltip')}
-						role="tooltip"><i class="bi bi-pencil-fill opacity-60 scale-90 inline-flex"></i></span
+						data-tooltip={`Edited ${message.edited?.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}`}
+						><i class="bi bi-pencil-fill opacity-60 scale-90 inline-flex"></i></span
 					>
+				{/if}
+				{#if message.reactions}
+					<div
+						class:justify-end={side === 'right'}
+						class:flex-row-reverse={side === 'right'}
+						class="flex flex-row gap-1 items-center flex-wrap group"
+					>
+						{#each message.reactions as reaction}
+							<button
+								data-tooltip={`${reaction.users
+									.map((u) => u.name)
+									.join(', ')
+									.replace(/\,(?=[^,]*$)/, ' &')} reacted with ${reaction.emoji}`}
+								class={`${reaction.reacted ? 'border-background-100 bg-background-100' : 'border-background-300 bg-background-300 hover:border-background-100 hover:border-opacity-40'} transition-colors flex p-0.5 flex-row items-center gap-1 rounded-full border-2 border-opacity-40 bg-opacity-30 pl-1.5 pr-1.5 w-fit h-fit`}
+							>
+								{#each reaction.users as user}
+									<img
+										src="https://ui-avatars.com/api/?name={user.name}&background=ffffff&color=7d8590&length=1&size=256&bold=true"
+										alt="profile"
+										class="aspect-square h-3.5 rounded-full inline-block"
+									/>
+								{/each}
+								<span class="text-text-100 text-[0.85rem] h-full">
+									<i class="twa twa-{fetchEmoji(reaction.emoji)}"></i>
+								</span>
+							</button>
+						{/each}
+						<button
+							data-tooltip="Add Reaction"
+							class="transition-opacity scale-110 hidden group-hover:inline-block material-symbols-outlined opacity-80 hover:opacity-100"
+							>add_reaction</button
+						>
+					</div>
 				{/if}
 			</p>
 		{/each}
@@ -169,28 +188,26 @@
 			class="flex invisible flex-row absolute bg-background-900 rounded-full shadow-background-950 shadow-md text-text-100 overflow-hidden"
 		>
 			<button
-				on:mouseover={(e) => dispatchTooltip(e, 'Quote')}
-				on:focus={(e) => dispatchTooltip(e, 'Quote')}
-				on:mouseleave={() => dispatch('hide-tooltip')}
-				on:focusout={() => dispatch('hide-tooltip')}
+				data-tooltip="Add Reaction"
+				class="transition-colors aspect-square h-[32px] p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
+				><i class="material-symbols-outlined scale-100 flex justify-center items-center"
+					>add_reaction</i
+				></button
+			>
+			<button
+				data-tooltip="Quote"
 				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i class="bi bi-quote scale-125 flex justify-center items-center translate-y-[1px]"
 				></i></button
 			>
 			{#if side === 'right'}
 				<button
-					on:mouseover={(e) => dispatchTooltip(e, 'Edit')}
-					on:focus={(e) => dispatchTooltip(e, 'Edit')}
-					on:mouseleave={() => dispatch('hide-tooltip')}
-					on:focusout={() => dispatch('hide-tooltip')}
+					data-tooltip="Edit"
 					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 					><i class="bi bi-pencil-fill flex justify-center items-center"></i></button
 				>
 				<button
-					on:mouseover={(e) => dispatchTooltip(e, 'Delete')}
-					on:focus={(e) => dispatchTooltip(e, 'Delete')}
-					on:mouseleave={() => dispatch('hide-tooltip')}
-					on:focusout={() => dispatch('hide-tooltip')}
+					data-tooltip="Delete"
 					class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center group"
 					><i
 						class="bi bi-trash-fill flex justify-center items-center group-hover:text-red-500 transition-colors"
@@ -198,10 +215,7 @@
 				>
 			{/if}
 			<button
-				on:mouseover={(e) => dispatchTooltip(e, 'More Options')}
-				on:focus={(e) => dispatchTooltip(e, 'More Options')}
-				on:mouseleave={() => dispatch('hide-tooltip')}
-				on:focusout={() => dispatch('hide-tooltip')}
+				data-tooltip="More Options"
 				class="transition-colors h-full aspect-square p-2 bg-transparent hover:bg-background-800 flex justify-center items-center"
 				><i class="bi bi-three-dots-vertical flex justify-center items-center"></i></button
 			>

@@ -8,6 +8,10 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	declare interface Window {
+		emojis: string[]?;
+	}
 }
 
 export {};

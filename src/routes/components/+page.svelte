@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import ExtendedContextMenu from '$lib/components/ExtendedContextMenu.svelte';
+	import FormattedMessageContent from '$lib/components/FormattedMessageContent.svelte';
 	import Message from '$lib/components/Message.svelte';
 	import MousePositionContainer from '$lib/components/MousePositionContainer.svelte';
 	import TooltipContainer from '$lib/components/TooltipContainer.svelte';
@@ -31,30 +32,10 @@
 		autoHeight();
 		console.log(JSON.stringify(inputBox.value));
 	};
-
-	// tooltips
-	let tooltip = '';
-	let position = { x: 0, y: 0 };
-
-	const showTooltip = (e: any) => {
-		tooltip = e.detail.text;
-		position = e.detail.position;
-	};
-	const showLocalTooltip = (event: any, text: string) => {
-		const target = event.target.tagName === 'I' ? event.target.parentElement : event.target;
-		position = {
-			x: target?.getBoundingClientRect().x + target?.getBoundingClientRect().width / 2,
-			y: target?.getBoundingClientRect().y
-		};
-		tooltip = text;
-	};
-	const hideTooltip = () => {
-		tooltip = '';
-	};
 </script>
 
 <MousePositionContainer></MousePositionContainer>
-<TooltipContainer {tooltip} {position}></TooltipContainer>
+<TooltipContainer></TooltipContainer>
 
 <h1 class="text-text-100 text-5xl inline-block">
 	Privacy <h1
@@ -121,77 +102,54 @@
 	><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Danger disabled</Button
 >
 
-<!-- <button
-	class="transition-colors text-text-100 p-2 bg-primary-600 rounded-full pl-3.5 pr-3.5 hover:bg-primary-500"
-	><span><i class="bi bi-pencil-fill text-text-100 mr-1.5"></i></span>Primary</button
->
-
-<button
-	disabled
-	class="transition-colors text-text-100 p-2 bg-background-700 rounded-full pl-3.5 pr-3.5 disabled:bg-primary-700 disabled:text-background-400 disabled:cursor-not-allowed"
-	><span><i class="bi bi-pencil-fill text-text-400 mr-1.5"></i></span>Primary disabled</button
->
-
-<button
-	class="transition-colors text-text-100 p-2 bg-background-700 rounded-full pl-3.5 pr-3.5 hover:bg-background-600"
-	><span><i class="bi bi-pencil-fill text-text-400 mr-1.5"></i></span>Secondary</button
->
-
-<button
-	disabled
-	class="transition-colors text-text-100 p-2 bg-background-700 rounded-full pl-3.5 pr-3.5 disabled:bg-background-700 disabled:text-background-400 disabled:cursor-not-allowed"
-	><span><i class="bi bi-pencil-fill text-text-500 mr-1.5"></i></span>Secondary disabled</button
->
-
-<button
-	class="transition-colors text-text-100 p-2 bg-red-600 rounded-full pl-3.5 pr-3.5 hover:bg-red-500"
-	><span><i class="bi bi-pencil-fill text-text-100 mr-1.5"></i></span>Danger</button
->
-
-<button
-	disabled
-	class="transition-colors text-text-100 p-2 bg-red-700 rounded-full pl-3.5 pr-3.5 disabled:bg-red-700 disabled:text-red-300 disabled:cursor-not-allowed"
-	><span><i class="bi bi-pencil-fill text-red-300 mr-1.5"></i></span>Danger disabled</button
-> -->
-
 <br />
 <br />
 
 <div class="w-full flex justify-center gap-2">
 	<div
-		on:mouseover={(e) => showLocalTooltip(e, 'This user is verified')}
-		on:focus={(e) => showLocalTooltip(e, 'This user is verified')}
-		on:mouseleave={() => hideTooltip()}
-		on:focusout={() => hideTooltip()}
+		data-tooltip="This user is verified"
+		data-tooltip-offset="top"
 		role="tooltip"
 		class="rounded-full text-green-500 border-green-500 border-2 bg-green-500 bg-opacity-10 pl-2 pr-2 w-fit h-fit"
 	>
 		Verified
 	</div>
 
-	<br />
-
 	<div
-		on:mouseover={(e) => showLocalTooltip(e, 'This user is not verified')}
-		on:focus={(e) => showLocalTooltip(e, 'This user is not verified')}
-		on:mouseleave={() => hideTooltip()}
-		on:focusout={() => hideTooltip()}
+		data-tooltip="This user is not verified"
+		data-tooltip-offset="bottom"
 		role="tooltip"
 		class="rounded-full text-orange-400 border-orange-400 bg-orange-500 bg-opacity-10 border-2 pl-2 pr-2 w-fit h-fit"
 	>
 		Unverified
 	</div>
+
+	<div
+		data-tooltip="Message here"
+		data-tooltip-offset="left"
+		role="tooltip"
+		class="rounded-full text-yellow-500 border-yellow-500 border-2 bg-yellow-500 bg-opacity-10 pl-2 pr-2 w-fit h-fit"
+	>
+		Message here
+	</div>
+
+	<div
+		data-tooltip="Message here"
+		data-tooltip-offset="right"
+		role="tooltip"
+		class="rounded-full text-red-400 border-red-400 bg-red-500 bg-opacity-10 border-2 pl-2 pr-2 w-fit h-fit"
+	>
+		Message here
+	</div>
 </div>
 
 <br />
 
-<div class="w-1/4 flex flex-col">
+<div class="w-1/2 flex flex-col">
 	<Message
-		on:show-tooltip={showTooltip}
-		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
-				content: 'Hello, how are you?',
+				content: 'Hello, how are you? :grinning-face-with-smiling-eyes:',
 				author: {
 					name: 'John Doe'
 				}
@@ -207,8 +165,6 @@
 		side="left"
 	></Message>
 	<Message
-		on:show-tooltip={showTooltip}
-		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
 				content: "I'm doing well, thank you!",
@@ -216,7 +172,7 @@
 					name: 'Jane Doe'
 				},
 				quote: {
-					content: 'Hello, how are you?',
+					content: 'Hello, how are you? :grinning-face-with-smiling-eyes:',
 					author: {
 						name: 'John Doe'
 					}
@@ -233,8 +189,6 @@
 	></Message>
 
 	<Message
-		on:show-tooltip={showTooltip}
-		on:hide-tooltip={hideTooltip}
 		messages={[
 			{
 				content: 'Oops typo',
@@ -246,6 +200,74 @@
 		]}
 		side="right"
 	></Message>
+
+	<Message
+		messages={[
+			{
+				content: 'Look at my message!',
+				author: {
+					name: 'Jane Doe'
+				},
+				reactions: [
+					{
+						emoji: ':thumbs-up:',
+						users: [
+							{
+								name: 'Jane Doe'
+							}
+						],
+						reacted: true
+					},
+					{
+						emoji: ':skull:',
+						users: [
+							{
+								name: 'Jane Doe'
+							},
+							{
+								name: 'John Doe'
+							},
+							{
+								name: 'Jane Doe 2'
+							}
+						],
+						reacted: true
+					},
+					{
+						emoji: ':grinning-face:',
+						users: [
+							{
+								name: 'John Doe'
+							}
+						],
+						reacted: false
+					}
+				]
+			}
+		]}
+		side="right"
+	></Message>
+
+	<Message
+		messages={[
+			{
+				content:
+					'Emojis galore!!!! :grinning-face: :grinning-face: :grinning-face: :thumbs-up: :fire:',
+				author: {
+					name: 'Jane Doe'
+				}
+			}
+		]}
+		side="right"
+	></Message>
+</div>
+
+<div class="text-text-100">
+	<FormattedMessageContent
+		content="test :emoji: testinggg :skull: hello :grinning-face-with-smiling-eyes:"
+	></FormattedMessageContent>
+	<br />
+	<FormattedMessageContent content="no way frr :fire: :skull:"></FormattedMessageContent>
 </div>
 
 <br />

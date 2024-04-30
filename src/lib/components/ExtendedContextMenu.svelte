@@ -28,6 +28,10 @@
 	tabindex="0"
 	class="flex flex-col w-fit absolute bg-background-900 rounded-2xl shadow-background-950 shadow-md text-text-200 overflow-hidden text-sm"
 >
+	<div class="h-[35px] opacity-50 p-1.5 text-center flex items-center justify-center">
+		{new Date().toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}
+	</div>
+	<hr class="opacity-20" />
 	<button
 		class="transition-colors duration-200 active:bg-none active:bg-background-700 hover:bg-radient-circle-pos from-background-700 to-background-900 from-0% to-70% text-left p-1.5 pr-2.5 h-[35px] capture-movement"
 		><i

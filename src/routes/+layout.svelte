@@ -1,11 +1,24 @@
 <script>
+	import { onMount } from 'svelte';
 	import '../app.css';
+
+	onMount(async () => {
+		const emojiCss = await fetch(
+			'https://cdn.jsdelivr.net/gh/iamludal/twemoji-awesome@1.1/twemoji-awesome.min.css'
+		).then((res) => res.text());
+		const emojis =
+			emojiCss
+				.match(/(?<=\.twa-)[A-Za-z-]+(?=,|:|{| )/gm)
+				?.filter((e) => !['lg', '2x', '3x', '4x', '5x', ''].includes(e)) || [];
+		window.emojis = emojis;
+	});
 </script>
 
 <slot />
 
 <style lang="postcss">
 	@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+	@import url('https://cdn.jsdelivr.net/gh/iamludal/twemoji-awesome@1.1/twemoji-awesome.min.css');
 
 	:global(:root) {
 		--linearPrimarySecondary: linear-gradient(#6a42ec, #a791ed);

@@ -3,8 +3,10 @@
 	import ExtendedContextMenu from '$lib/components/ExtendedContextMenu.svelte';
 	import FormattedMessageContent from '$lib/components/FormattedMessageContent.svelte';
 	import Message from '$lib/components/Message.svelte';
+	import MessageTyping from '$lib/components/MessageTyping.svelte';
 	import MousePositionContainer from '$lib/components/MousePositionContainer.svelte';
 	import TooltipContainer from '$lib/components/TooltipContainer.svelte';
+	import Typing from '$lib/components/Typing.svelte';
 
 	let inputBox: HTMLTextAreaElement;
 
@@ -66,29 +68,6 @@
 
 <br />
 
-<div>
-	<label class="relative block">
-		<span class="sr-only">Send a message</span>
-		<textarea
-			on:keypress={keyEvent}
-			on:keydown={keyEvent}
-			on:paste={autoHeight}
-			bind:this={inputBox}
-			placeholder="Send a message"
-			rows="1"
-			style="border-radius: 1.25rem;"
-			class="text-text-100 p-2 block w-full placeholder:text-text-400 pr-12 pl-4 bg-background-800 outline-none resize-none overflow-hidden"
-		/>
-		<span
-			class="absolute inset-y-0 right-0 flex items-center pl-3 pr-4 bg-background-700 justify-start pt-2 pb-2 flex-col"
-			style="border-top-right-radius: 1.25rem; border-bottom-right-radius: 1.25rem;"
-			><button on:click={submit} class="h-fit"
-				><i class="bi bi-send-fill text-text-400 hover:text-text-100 transition-colors"></i></button
-			></span
-		>
-	</label>
-</div>
-
 <br />
 
 <Button><span><i class="bi bi-pencil-fill mr-1.5"></i></span>Primary</Button>
@@ -143,9 +122,15 @@
 	</div>
 </div>
 
+<Typing></Typing>
+
+<br />
+<br />
+<br />
+<br />
 <br />
 
-<div class="w-1/2 flex flex-col">
+<div class="w-full flex flex-col">
 	<Message
 		messages={[
 			{
@@ -260,7 +245,36 @@
 		]}
 		side="right"
 	></Message>
+	<MessageTyping></MessageTyping>
 </div>
+
+<div class="mt-1">
+	<label class="relative block">
+		<span class="sr-only">Send a message</span>
+		<textarea
+			on:keypress={keyEvent}
+			on:keydown={keyEvent}
+			on:paste={autoHeight}
+			bind:this={inputBox}
+			placeholder="Send a message"
+			rows="1"
+			style="border-radius: 1.25rem;"
+			class="text-text-100 p-2 block w-full placeholder:text-text-400 pr-12 pl-4 bg-background-800 outline-none resize-none overflow-hidden"
+		/>
+		<span
+			class="absolute inset-y-0 right-0 flex items-center pl-3 pr-4 bg-background-700 justify-start pt-2 pb-2 flex-col"
+			style="border-top-right-radius: 1.25rem; border-bottom-right-radius: 1.25rem;"
+			><button on:click={submit} class="h-fit"
+				><i class="bi bi-send-fill text-text-400 hover:text-text-100 transition-colors"></i></button
+			></span
+		>
+	</label>
+</div>
+
+<br />
+<br />
+<br />
+<br />
 
 <div class="text-text-100">
 	<FormattedMessageContent
